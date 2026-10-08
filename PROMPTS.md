@@ -37,9 +37,29 @@ Sekarang, setiap halaman detail produk (contohnya /produk/1) akan merender datan
 
 ## US-03 Pesan via WhatsApp
 
-**Prompt:**
+**Prompt:*Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
 
-**Hasil:**
+Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.*
+
+**Hasil:*Viewed rancangan-teknis.md:1-69
+Viewed TombolWhatsApp.jsx:1-13
+Viewed page.jsx:1-43
+Viewed toko.js:1-10
+Edited TombolWhatsApp.jsx
+
+Fitur US-03 (Pesan WhatsApp) sudah selesai saya kerjakan! 
+
+Berikut perubahan yang telah saya lakukan:
+1. **Mengubah `components/TombolWhatsApp.jsx`**:
+   - Saya mengubah komponen dari elemen `<button>` menjadi tautan `<a>`.
+   - Menambahkan referensi nomor telepon dari `lib/toko.js` (`toko.nomorWhatsApp`).
+   - Menyusun pesan otomatis ("Halo, saya mau pesan ...") yang berisi nama produk serta harga dengan format rupiah.
+   - Pesan tersebut saya masukkan ke URL WhatsApp (`https://wa.me/...`) dan sudah di-encode dengan `encodeURIComponent` agar aman dari karakter spesial atau spasi.
+   - Tautan tersebut kini disetel dengan atribut `target="_blank"` supaya terbuka di tab/aplikasi baru tanpa meninggalkan halaman web kita.
+2. Tampilan tombol (kelas-kelas Tailwind) dipertahankan sepenuhnya, sehingga tidak ada bedanya secara visual dengan sebelumnya.
+3. Mengenai `<CatatanBelumAktif>` yang menyebut US-03 di halaman detail produk, komponen tersebut kebetulan sudah saya bersihkan pada langkah pengerjaan (US-02) sebelumnya.
+
+Kini jika pengunjung menekan tombol "Pesan via WhatsApp" dari halaman produk (baik lewat ponsel atau laptop), mereka akan langsung diarahkan ke chat WhatsApp yang pesannya sudah terisi otomatis!*
 
 **Perbaikan:**
 
