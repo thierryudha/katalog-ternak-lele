@@ -96,12 +96,26 @@ Fitur ganti password admin (US-05) berhasil dikerjakan dengan langkah berikut:
 
 ## US-06 Proteksi halaman admin
 
-**Prompt:**
+**Prompt:*Baca AGENTS.md aturan keamanan nomor 3 dan 4, dan docs/user-stories.md bagian US-06.
+
+Buat file proxy.js di root proyek (Next.js 16). Semua rute /admin kecuali /admin/login wajib login dengan Supabase Auth; kalau belum login, alihkan ke /admin/login. Pastikan juga setiap Server Action yang mengubah data memeriksa login di server. Hapus CatatanBelumAktif dari halaman /admin.
+jangan lupa untuk menulis hasil dari prompt ini ke hasil di US-06 PROMPTS.md*
 
 **Hasil:**
+Fitur proteksi halaman admin (US-06) telah selesai dengan langkah berikut:
+1. **Membuat File `proxy.js`**: File pengganti `middleware.js` untuk Next.js 16 ini dibuat di *root* proyek. Middleware ini menggunakan `@supabase/ssr` untuk memeriksa *cookie* sesi di setiap permintaan web. Jika ada pengunjung yang mencoba mengakses halaman di bawah path `/admin` (selain `/admin/login`) namun tidak terautentikasi (belum login), mereka akan langsung dialihkan (*redirect*) ke `/admin/login`.
+2. **Memeriksa Keamanan Server Action**: Memastikan fungsi `gantiPassword` (sebagai aksi yang mengubah data) di dalam `app/admin/actions.js` selalu memanggil `supabase.auth.getUser()` untuk memverifikasi keabsahan login secara mandiri di sisi *server*.
+3. **Pembersihan**: Menghapus komponen `<CatatanBelumAktif>` yang sebelumnya ditampilkan di halaman produk admin (`app/admin/page.jsx`).
 
 **Perbaikan:**
 
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
+
+### Memperbaiki Export pada proxy.js
+
+**Prompt:** [SENDIRI] *Memperbaiki error "Proxy is missing expected function export name".*
+
+**Hasil:**
+Di Next.js 16, jika memakai file bernama `proxy.js` (pengganti `middleware.js`), fungsi yang diekspor di dalamnya juga harus bernama `proxy` (atau dijadikan *default export*), tidak bisa lagi bernama `middleware`. Saya telah mengubah deklarasi dari `export async function middleware(request)` menjadi `export async function proxy(request)`. Error build sudah teratasi.
