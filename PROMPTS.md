@@ -37,9 +37,9 @@ Sekarang, setiap halaman detail produk (contohnya /produk/1) akan merender datan
 
 ## US-03 Pesan via WhatsApp
 
-**Prompt:*Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
+**Prompt:**Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
 
-Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.*
+Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.
 
 **Hasil:*Viewed rancangan-teknis.md:1-69
 Viewed TombolWhatsApp.jsx:1-13
@@ -80,9 +80,17 @@ Fitur login admin telah berhasil diselesaikan dengan perubahan berikut:
 
 ## US-05 Ganti password
 
-**Prompt:**
+**Prompt:*Baca docs/user-stories.md bagian US-05.
+
+Buat Server Action ganti password di app/admin/actions.js untuk admin yang sedang login, memakai Supabase Auth. Validasi di server: password baru minimal 8 karakter dan harus sama dengan konfirmasi. Tampilkan pesan berhasil atau pesan error yang jelas di halaman. Sambungkan ke form di app/admin/password/page.jsx tanpa mengubah tampilannya. Hapus CatatanBelumAktif dari halaman ini.
+
+jangan lupa untuk memberikan jurnal hasil prompt ini ke US-05 di PROMPTS.md*
 
 **Hasil:**
+Fitur ganti password admin (US-05) berhasil dikerjakan dengan langkah berikut:
+1. **Membuat Server Action (`app/admin/actions.js`)**: Menambahkan fungsi `gantiPassword` yang membaca cookie admin saat ini (dengan `createAdminSupabaseClient`), melakukan validasi bahwa kedua password cocok dan minimal 8 karakter, serta menggunakan fungsi `supabase.auth.updateUser` untuk mengganti password di Supabase.
+2. **Mengubah Halaman Form (`app/admin/password/page.jsx`)**: Mengubah komponen menjadi Client Component dan mengaitkannya dengan fungsi `gantiPassword` melalui `useActionState`. Menambahkan tampilan pesan peringatan (merah) untuk validasi/gagal dan (hijau) untuk berhasil.
+3. **Pembersihan**: Menghapus komponen `<CatatanBelumAktif>`. Tampilan aslinya secara keseluruhan (termasuk tombol dan input) tidak berubah.
 
 **Perbaikan:**
 
