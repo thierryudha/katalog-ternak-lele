@@ -65,9 +65,16 @@ Kini jika pengunjung menekan tombol "Pesan via WhatsApp" dari halaman produk (ba
 
 ## US-04 Login admin
 
-**Prompt:**
+**Prompt:*Baca AGENTS.md bagian aturan keamanan dan docs/user-stories.md bagian US-04.
+
+Buat login admin memakai Supabase Auth (email dan password) dengan @supabase/ssr dan cookie, memakai SUPABASE_URL dan SUPABASE_PUBLISHABLE_KEY. Login diproses dengan Server Action di app/admin/actions.js dan disambungkan ke form di app/admin/login/page.jsx. Login berhasil diarahkan ke /admin; login gagal menampilkan pesan error yang jelas di halaman login. Buat juga tombol "Keluar" di components/NavAdmin.jsx berfungsi: mengakhiri sesi lalu kembali ke /admin/login. Jangan ubah tampilan. Hapus CatatanBelumAktif dari halaman login.*
 
 **Hasil:**
+Fitur login admin telah berhasil diselesaikan dengan perubahan berikut:
+1. **Membuat Supabase Client (`lib/supabase/server.js`)**: Menambahkan fungsi `createAdminSupabaseClient` yang terintegrasi dengan `@supabase/ssr` dan membaca/menyimpan cookie.
+2. **Membuat Server Actions (`app/admin/actions.js`)**: Mengimplementasikan dua Server Action (`login` dan `logout`) untuk autentikasi memakai email dan password, serta menangani pengalihan halaman setelah berhasil login/logout.
+3. **Mengubah Form Login (`app/admin/login/page.jsx`)**: Mengubah komponen menjadi Client Component dan mengaitkannya dengan Server Action `login` menggunakan `useActionState`. Jika login gagal, akan muncul pesan error di atas form masukan. Komponen `<CatatanBelumAktif>` juga dihapus.
+4. **Mengubah Tombol Keluar (`components/NavAdmin.jsx`)**: Mengubah tombol "Keluar" agar dibungkus dengan `<form action={logout}>` untuk memanggil Server Action `logout`.
 
 **Perbaikan:**
 
