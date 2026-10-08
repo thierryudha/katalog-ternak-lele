@@ -21,9 +21,17 @@ Menambahkan pengkondisian untuk menampilkan pesan error jika gagal mengambil dat
 
 ## US-02 Detail produk
 
-**Prompt:**
+**Prompt:*Baca docs/user-stories.md bagian US-02.
 
-**Hasil:**
+Ubah app/produk/[id]/page.jsx supaya mengambil satu produk dari tabel "produk" di Supabase berdasarkan id di URL, di sisi server, memakai koneksi Supabase yang sudah dibuat di lib/supabase. Kalau produk tidak ditemukan, panggil notFound(). Jangan ubah tampilannya. Hapus CatatanBelumAktif dari halaman ini, tapi biarkan tombol WhatsApp.*
+
+**Hasil:*Saya telah menyelesaikan US-02. File app/produk/[id]/page.jsx sudah diperbarui dengan perubahan berikut:
+
+Pengambilan Data dari Supabase: Menggunakan createServerSupabaseClient yang sebelumnya kita buat di lib/supabase/server.js untuk mengambil detail satu produk berdasarkan id pada URL.
+Penanganan Produk Tidak Ditemukan: Menambahkan pengecekan if (error || !produk). Jika query gagal atau produk dengan ID tersebut tidak ada di database, halaman akan otomatis memanggil fungsi notFound() untuk merender halaman 404.
+Pembersihan Kode: Menghapus komponen <CatatanBelumAktif> dan import cariProdukContoh. Tampilan halaman tetap dipertahankan persis seperti sebelumnya dan TombolWhatsApp tetap dibiarkan ada.
+
+Sekarang, setiap halaman detail produk (contohnya /produk/1) akan merender datanya langsung dari Supabase!*
 
 **Perbaikan:**
 
